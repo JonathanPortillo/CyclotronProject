@@ -9,6 +9,20 @@ e = [5000000.0, 0.0, 0.0]
 b = [0.0, 0.0, -1.5]
 bmag = np.linalg.norm(b)
 
+class Save:
+	def __init__(self, pos_list_x, pos_list_y, pos_list_z):
+		self.pos_list_x = pos_list_x
+		self.pos_list_y = pos_list_y
+		self.pos_list_z = pos_list_z
+	def save_to_JSON(self):
+		f = open("pos.json", 'w')
+		f.write(str(self.pos_list_x))
+		f.write('\n')
+		f.write(str(self.pos_list_y))
+		f.write('\n')
+		f.write(str(self.pos_list_z))
+
+
 class Particle: 
 	def __init__(self, pos, vel, mass, charge): 
 		self.pos = pos
@@ -185,6 +199,9 @@ def position_plot(particle):
 		x.append(i[0])
 		y.append(i[1])
 		z.append(i[2])
+
+	save = Save(x,y,z)
+	save.save_to_JSON()
 		
 	coordlabel = ["X-axis (m)","Y-axis (m)","Z-axis (m)"]
 	plot(coordlabel, "Particle Trajectory in Cyclotron Accelerator", '3d', x,y,z)
