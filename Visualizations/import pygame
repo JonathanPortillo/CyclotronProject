@@ -41,8 +41,7 @@ class Read:
             f = open(self.filename, 'r')
             data = f.read()
             split_data = data.split('\n')
-            split_data[0] = split_data[0].split()
-            
+            split_data[0] = split_data.split()
             split_data[0].pop(split_data[0].index('['))
             split_data[0] = split_data[0].replace('[', '')
             split_data[0] = split_data[0].replace(']', '')
