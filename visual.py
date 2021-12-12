@@ -41,11 +41,27 @@ class Read:
             f = open(self.filename, 'r')
             data = f.read()
             split_data = data.split('\n')
-            split_data[0] = split_data[0].split()
-            
-            split_data[0].pop(split_data[0].index('['))
-            split_data[0] = split_data[0].replace('[', '')
-            split_data[0] = split_data[0].replace(']', '')
+            #x data
+            split_data[0] = split_data[0][1:-1]
+            #y data
+            split_data[1] = split_data[1][1:-1]
+            #z data
+            split_data[2] = split_data[2][1:-1] 
+
+            #x data in list char numbers
+            split_data[0] = split_data[0].split(", ")
+            #y data in list char numbers
+            split_data[1] = split_data[1].split(", ")
+            #z data in list char numbers
+            split_data[2] = split_data[2].split(", ")
+
+            #x data in floats
+            split_data[0] = [float(x) for x in split_data[0]]
+            #y data in floats
+            split_data[1] = [float(y) for y in split_data[1]]
+            #x data in floats
+            split_data[2] = [float(z) for z in split_data[2]]
+
             self.x_list = split_data[0]
             self.y_list = split_data[1]
             self.z_list = split_data[2]
@@ -69,19 +85,16 @@ def Cyclic_Motion():
 	glEnd()
 
 def main():
-    file_reader = Read("pos.json")
-    file_reader.read()
     pygame.init()
-    print()
-    data = [file_reader.x_list, file_reader.y_list, file_reader.z_list]
     
     display = (800,600)
     pygame.display.set_mode(display, DOUBLEBUF|OPENGL)
 
     #read coorindate
-    read_data = Read("pos.json")
-    read_data.read()
+    data = Read("pos.json")
+    data.read()
 
+    data = [data.x_list, data.y_list, data.z_list]
     gluPerspective(45, (display[0]/display[1]), 0.1, 50.0)
 
     while True:
