@@ -1,8 +1,36 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sat Dec 18 18:55:31 2021
+
+@author: Guita
+"""
+
 import pygame
 from pygame.locals import *
+import math
 
 from OpenGL.GL import *
 from OpenGL.GLU import *
+
+
+
+
+def Triangle():
+        glBegin(GL_TRIANGLES)
+        glVertex2f( -0.7, -0.5 )
+        glVertex2f( 0.7, -0.5 )
+        glVertex2f( 0, 0.7 )
+        glEnd()
+def drawHollowCircle(x, y, radius):
+        lineAmount = 100
+
+        radius = 0.8
+        twicePi = 2.0 * math.pi
+
+        glBegin(GL_LINE_LOOP)
+        for i in range(lineAmount):
+            glVertex2f(x + (radius * math.cos(i *  twicePi / lineAmount)),  y + (radius* math.sin(i * twicePi / lineAmount)))
+        glEnd()
 
 verticies = (
     (1, -1, -1),
@@ -33,7 +61,7 @@ edges = (
 
 class Read:
         def __init__(self, filename):
-            self.filename = filename 
+            self.filename = filename
             self.x_list = None
             self.y_list = None
             self.z_list = None
@@ -46,7 +74,7 @@ class Read:
             #y data
             split_data[1] = split_data[1][1:-1]
             #z data
-            split_data[2] = split_data[2][1:-1] 
+            split_data[2] = split_data[2][1:-1]
 
             #x data in list char numbers
             split_data[0] = split_data[0].split(", ")
@@ -76,49 +104,54 @@ def Cube():
 
 
 def Cyclic_Motion():
-	glPointSize(1.0)
-	glClearColor(0.0, 0.0, 0.0, 1.0)
-	glClear(GL_COLOR_BUFFER_BIT)
-	glColor3f(1.0, 1.0, 1.0)
-	glBegin(GL_POINTS)
-	glVertex2f(100, 150)
-	glEnd()
+    glPointSize(1.0)
+    glClearColor(0.0, 0.0, 0.0, 1.0)
+    glClear(GL_COLOR_BUFFER_BIT)
+    glColor3f(1.0, 1.0, 1.0)
+    glBegin(GL_POINTS)
+    glVertex2f(100, 150)
+    glEnd()
 
 def main():
     pygame.init()
-    
+
     display = (800,600)
     pygame.display.set_mode(display, DOUBLEBUF|OPENGL)
 
-    #read coorindate
-    # data = Read("pos.json")
-    # data.read()
-    
-    #data = [data.x_list, data.y_list, data.z_list]
     #gluPerspective(45, (display[0]/display[1]), 0.1, 50.0)
-
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
+        drawHollowCircle(0.0,0.0,50.0)
 
-
-        #glRotatef(1, 3, 1, 1)
-        glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
-        #Cube()
-        glBegin(GL_TRIANGLES);
-        glVertex2f( -0.7, -0.5 );
-        glVertex2f( 0.7, -0.5 );
-        glVertex2f( 0, 0.7 );
-        glEnd();
-
-        #plots the points
-        #Cyclic_Motion()
-        #updates the screen
         pygame.display.flip()
-        #waits for the screen response
-        pygame.time.wait(10)
+
+    # while True:
+    #     for event in pygame.event.get():
+    #         if event.type == pygame.QUIT:
+    #             pygame.quit()
+    #             quit()
+
+
+    #     #glRotatef(1, 3, 1, 1)
+    #     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
+    #     #Cube()
+
+    #     #plots the points
+    #     #Cyclic_Motion()
+    #     #updates the screen
+    #     glBegin(GL_TRIANGLES)
+    #     glVertex2f( -0.7, -0.5 )
+    #     glVertex2f( 0.7, -0.5 )
+    #     glVertex2f( 0, 0.7 )
+    #     glEnd()
+
+    #     pygame.display.flip()
+    #     #waits for the screen response
+    #     pygame.time.wait(10)
 
 
 main()
+
