@@ -66,7 +66,6 @@ class Read:
             self.y_list = split_data[1]
             self.z_list = split_data[2]
             f.close()
-
 def Cube():
     glBegin(GL_LINES)
     for edge in edges:
@@ -84,17 +83,23 @@ def Cyclic_Motion():
 	glVertex2f(100, 150)
 	glEnd()
 
+def Particle_Projectile_Motion_Display(x_list, y_list):
+    #glBegin(GL_LINE_LOOP)
+    glBegin(GL_POINTS)
+    for i in range(len(x_list)):
+         glVertex2f(x_list[i], y_list[i])
+    glEnd()
+
 def main():
+
     pygame.init()
     
     display = (800,600)
     pygame.display.set_mode(display, DOUBLEBUF|OPENGL)
 
     #read coorindate
-    # data = Read("pos.json")
-    # data.read()
-    
-    #data = [data.x_list, data.y_list, data.z_list]
+    data = Read("pos.json")
+    data.read()
     #gluPerspective(45, (display[0]/display[1]), 0.1, 50.0)
 
     while True:
@@ -102,23 +107,25 @@ def main():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
+        Particle_Projectile_Motion_Display(data.x_list, data.y_list)
+        pygame.display.flip()
 
 
         #glRotatef(1, 3, 1, 1)
-        glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
-        #Cube()
-        glBegin(GL_TRIANGLES);
-        glVertex2f( -0.7, -0.5 );
-        glVertex2f( 0.7, -0.5 );
-        glVertex2f( 0, 0.7 );
-        glEnd();
+        # glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
+        # #Cube()
+        # glBegin(GL_TRIANGLES);
+        # glVertex2f( -0.7, -0.5 );
+        # glVertex2f( 0.7, -0.5 );
+        # glVertex2f( 0, 0.7 );
+        # glEnd();
 
         #plots the points
         #Cyclic_Motion()
         #updates the screen
-        pygame.display.flip()
-        #waits for the screen response
-        pygame.time.wait(10)
+        # pygame.display.flip()
+        # #waits for the screen response
+        # pygame.time.wait(10)
 
 
 main()

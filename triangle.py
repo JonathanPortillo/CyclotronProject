@@ -13,25 +13,6 @@ from OpenGL.GL import *
 from OpenGL.GLU import *
 
 
-
-
-def Triangle():
-        glBegin(GL_TRIANGLES)
-        glVertex2f( -0.7, -0.5 )
-        glVertex2f( 0.7, -0.5 )
-        glVertex2f( 0, 0.7 )
-        glEnd()
-def drawHollowCircle(x, y, radius):
-        lineAmount = 100
-
-        radius = 0.8
-        twicePi = 2.0 * math.pi
-
-        glBegin(GL_LINE_LOOP)
-        for i in range(lineAmount):
-            glVertex2f(x + (radius * math.cos(i *  twicePi / lineAmount)),  y + (radius* math.sin(i * twicePi / lineAmount)))
-        glEnd()
-
 verticies = (
     (1, -1, -1),
     (1, 1, -1),
@@ -111,6 +92,23 @@ def Cyclic_Motion():
     glBegin(GL_POINTS)
     glVertex2f(100, 150)
     glEnd()
+
+def Triangle():
+        glBegin(GL_TRIANGLES)
+        glVertex2f( -0.7, -0.5 )
+        glVertex2f( 0.7, -0.5 )
+        glVertex2f( 0, 0.7 )
+        glEnd()
+def drawHollowCircle(x, y, radius):
+        lineAmount = 100
+
+        radius = 0.8
+        twicePi = 2.0 * math.pi
+
+        glBegin(GL_LINE_LOOP)
+        for i in range(lineAmount):
+            glVertex2f(x + (radius * math.cos(i *  twicePi / lineAmount)),  y + (radius* math.sin(i * twicePi / lineAmount)))
+        glEnd()
 
 def main():
     pygame.init()
