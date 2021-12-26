@@ -1,4 +1,5 @@
 import pygame
+import time
 from pygame.locals import *
 
 from OpenGL.GL import *
@@ -101,14 +102,22 @@ def main():
     data = Read("pos.json")
     data.read()
     #gluPerspective(45, (display[0]/display[1]), 0.1, 50.0)
-
-    while True:
+    current_img_x = []
+    current_img_y = []
+    index = 0
+    log_increase_coeff = 2
+    while index < len(data.x_list):
+        current_img_x = data.x_list[0:index]
+        current_img_y = data.y_list[0:index]
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
-        Particle_Projectile_Motion_Display(data.x_list, data.y_list)
+        Particle_Projectile_Motion_Display(current_img_x, current_img_y)
+        time.sleep(1/log_increase_coeff)
+        log_increase_coeff +=1
         pygame.display.flip()
+        index +=1
 
 
         #glRotatef(1, 3, 1, 1)
